@@ -1,0 +1,62 @@
+<template name="simpleTable">
+  <table class="{{tableClass}}">
+    <thead class="{{theadClass}}">
+      <tr class="{{theadTrClass}}">
+        {{#each columns}}
+          <th class="{{thClass}} {{#if isSortedByColumn 1}}{{../thAscendingClass}}{{/if}} {{#if isSortedByColumn -1}}{{../thDescendingClass}}{{/if}}" data-field="{{field}}">{{name}}</th>
+        {{/each}}
+      </tr>
+    </thead>
+    <tbody class="{{tbodyClass}}">
+      {{#each documents}}
+        <tr class="{{trClass}}">
+          {{#each ../columns}}
+            <td class="{{tdClass}}">
+              {{#if template}}
+                {{#with value ..}}
+                  {{> Template.dynamic template=../template}}
+                {{/with}}
+              {{else}}
+                {{value ..}}
+              {{/if}}
+            </td>
+          {{/each}}
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  <ul class="{{paginationUlClass}}">
+    <li
+      class="{{paginationLiClass}} {{paginationLiFirstClass}} {{#if isPageActive firstPage}}{{paginationLiActiveClass}}{{/if}}"
+      data-page="{{firstPage}}"
+    >
+      &lt;&lt;
+    </li>
+    <li
+      class="{{paginationLiClass}} {{paginationLiPreviousClass}} {{#if isPageActive previousPage}}{{paginationLiActiveClass}}{{/if}}"
+      data-page="{{previousPage}}"
+    >
+      &lt;
+    </li>
+    {{#each pages}}
+      <li
+        class="{{../paginationLiClass}} {{#if isPageActive this}}{{../paginationLiActiveClass}}{{/if}} {{#if isSeparator}}{{../paginationLiSeparatorClass}}{{/if}}"
+        data-page="{{#unless isSeparator}}{{this}}{{/unless}}"
+      >
+        {{this}}
+      </li>
+    {{/each}}
+    <li
+      class="{{paginationLiClass}} {{paginationLiNextClass}} {{#if isPageActive nextPage}}{{paginationLiActiveClass}}{{/if}}"
+      data-page="{{nextPage}}"
+    >
+      &gt;
+    </li>
+    <li
+      class="{{paginationLiClass}} {{paginationLiLastClass}} {{#if isPageActive lastPage}}{{paginationLiActiveClass}}{{/if}}"
+      data-page="{{lastPage}}"
+    >
+      &gt;&gt;
+    </li>
+  </ul>
+</template>
