@@ -1,24 +1,56 @@
 <template name="simpleTable">
   <table class="{{tableClass}}">
-    <thead class="{{theadClass}}">
+    <thead class="fu-simple-data-table__head">
       <tr class="{{theadTrClass}}">
         {{#each columns}}
-          <th class="{{thClass}} {{#if isSortedByColumn 1}}{{../thAscendingClass}}{{/if}} {{#if isSortedByColumn -1}}{{../thDescendingClass}}{{/if}}" data-field="{{field}}">{{name}}</th>
+          {{#if children}}
+            <th class="{{thClass}}">
+              {{#each children}}
+                <span class="{{thSpanClass}} {{#if isSortedByColumn 1}}{{../../thSpanAscendingClass}}{{/if}} {{#if isSortedByColumn -1}}{{../../thSpanDescendingClass}}{{/if}}" data-field="{{field}}">
+                  {{name}}
+                </span>
+                {{#unless isLast ../children this}}
+                  <span class="{{../../thSpanSeparatorClass}}">
+                    {{../../thSpanSeparatorContent}}
+                  </span>
+                {{/unless}}
+              {{/each}}
+            </th>
+          {{else}}
+            <th class="{{thClass}} {{#if isSortedByColumn 1}}{{../thAscendingClass}}{{/if}} {{#if isSortedByColumn -1}}{{../thDescendingClass}}{{/if}}" data-field="{{field}}">{{name}}</th>
+          {{/if}}
         {{/each}}
       </tr>
     </thead>
-    <tbody class="{{tbodyClass}}">
+    <tbody class="fu-simple-data-table__body">
       {{#each documents}}
         <tr class="{{trClass}}">
           {{#each ../columns}}
             <td class="{{tdClass}}">
-              {{#if template}}
-                {{#with value ..}}
-                  {{> Template.dynamic template=../template}}
-                {{/with}}
+              {{#each children}}
+                <span class="{{tdSpanClass}}">
+                  {{#if template}}
+                    {{#with value ..}}
+                      {{> Template.dynamic template=../template}}
+                    {{/with}}
+                  {{else}}
+                    {{value ..}}
+                  {{/if}}
+                </span>
+                {{#unless isLast ../children this}}
+                  <span class="{{../../../tdSpanSeparatorClass}}">
+                    {{../../../tdSpanSeparatorContent}}
+                  </span>
+                {{/unless}}
               {{else}}
-                {{value ..}}
-              {{/if}}
+                {{#if template}}
+                  {{#with value ..}}
+                    {{> Template.dynamic template=../template}}
+                  {{/with}}
+                {{else}}
+                  {{value ..}}
+                {{/if}}
+              {{/each}}
             </td>
           {{/each}}
         </tr>

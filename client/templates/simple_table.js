@@ -46,6 +46,9 @@ Template.simpleTable.onCreated(function() {
 });
 
 Template.simpleTable.helpers({
+  isLast(list, elem) {
+    return _.last(list) === elem;
+  },
   pages() {
     const template = Template.instance();
     const lastPage = template.pagesCount.get() + 1;
