@@ -30,11 +30,11 @@
               {{#each children}}
                 <span class="{{tdSpanClass}}">
                   {{#if template}}
-                    {{#with value ..}}
+                    {{#with value ../..}}
                       {{> Template.dynamic template=../template}}
                     {{/with}}
                   {{else}}
-                    {{value ..}}
+                    {{value ../..}}
                   {{/if}}
                 </span>
                 {{#unless isLast ../children this}}
