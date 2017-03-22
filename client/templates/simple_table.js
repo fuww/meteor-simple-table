@@ -107,10 +107,9 @@ Template.simpleTable.helpers({
     return this.collection.find(this.selector, options);
   },
   value(document) {
-    const field = this.field;
-    const transform = this.transform;
+    const {field, transform, documentValue} = this;
 
-    if (!field) {
+    if (!field || documentValue) {
       if (transform) {
         return transform(document);
       }
