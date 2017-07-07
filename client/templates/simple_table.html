@@ -1,6 +1,6 @@
 <template name="simpleTable">
   <table class="{{tableClass}}">
-    <thead class="fu-simple-data-table__head">
+    <thead class="{{theadClass}}">
       <tr class="{{theadTrClass}}">
         {{#each columns}}
           {{#if children}}
@@ -22,7 +22,7 @@
         {{/each}}
       </tr>
     </thead>
-    <tbody class="fu-simple-data-table__body">
+    <tbody class="{{tbodyClass}}">
       {{#each documents}}
         <tr class="{{../trClass}}">
           {{#each ../columns}}
