@@ -27,30 +27,32 @@
         <tr class="{{../trClass}}">
           {{#each ../columns}}
             <td class="{{tdClass}}">
-              {{#each children}}
-                <span class="{{tdSpanClass}}">
+              <span class="{{tdWrapperSpanClass}}">
+                {{#each children}}
+                  <span class="{{tdSpanClass}}">
+                    {{#if template}}
+                      {{#with value ../..}}
+                        {{> Template.dynamic template=../template}}
+                      {{/with}}
+                    {{else}}
+                      {{value ../..}}
+                    {{/if}}
+                  </span>
+                  {{#unless isLast ../children this}}
+                    <span class="{{../../../tdSpanSeparatorClass}}">
+                      {{../../../tdSpanSeparatorContent}}
+                    </span>
+                  {{/unless}}
+                {{else}}
                   {{#if template}}
-                    {{#with value ../..}}
+                    {{#with value ..}}
                       {{> Template.dynamic template=../template}}
                     {{/with}}
                   {{else}}
-                    {{value ../..}}
+                    {{value ..}}
                   {{/if}}
-                </span>
-                {{#unless isLast ../children this}}
-                  <span class="{{../../../tdSpanSeparatorClass}}">
-                    {{../../../tdSpanSeparatorContent}}
-                  </span>
-                {{/unless}}
-              {{else}}
-                {{#if template}}
-                  {{#with value ..}}
-                    {{> Template.dynamic template=../template}}
-                  {{/with}}
-                {{else}}
-                  {{value ..}}
-                {{/if}}
-              {{/each}}
+                {{/each}}
+              </span>
             </td>
           {{/each}}
         </tr>
