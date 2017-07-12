@@ -3,7 +3,7 @@
 
 Package.describe({
   summary: 'Package for just a simple table',
-  version: '0.0.8',
+  version: '0.0.9',
   name: 'fuww:simple-table',
   git: 'https://github.com/fuww/meteor-simple-table.git',
   documentation: 'README.md'
