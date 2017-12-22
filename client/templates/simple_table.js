@@ -23,11 +23,19 @@ Template.simpleTable.onCreated(function() {
   });
 
   this.autorun(() => {
-    const data = Template.currentData();
+    const {find, collection} = Template.currentData();
 
-    this.pagesCount.set(Math.ceil(
-      data.collection.find(data.selector).count() / this.pageSize.get()
-    ) || 1);
+    this.find = find || collection.find.bind(collection);
+  });
+
+  this.autorun(() => {
+    const {
+      selector,
+      count = this.find(selector).count()
+    } = Template.currentData();
+    const pagesCount = Math.ceil(count / this.pageSize.get()) || 1;
+
+    this.pagesCount.set(pagesCount);
   });
 
   this.autorun(() => {
@@ -104,7 +112,7 @@ Template.simpleTable.helpers({
       options.sort = sort;
     }
 
-    return this.collection.find(this.selector, options);
+    return template.find(this.selector, options);
   },
   value(document) {
     const {field, transform, documentValue} = this;
