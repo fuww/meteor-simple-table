@@ -153,6 +153,13 @@ Template.simpleTable.helpers({
     const template = Template.instance();
 
     return template.pagesCount.get();
+  },
+  callIfFunction(functionOrString, document) {
+    if (_.isFunction(functionOrString)) {
+      return functionOrString(document);
+    }
+
+    return functionOrString;
   }
 });
 

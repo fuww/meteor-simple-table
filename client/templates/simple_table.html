@@ -24,12 +24,12 @@
     </thead>
     <tbody class="{{tbodyClass}}">
       {{#each documents}}
-        <tr class="{{../trClass}}">
+        <tr class="{{callIfFunction ../trClass this}}">
           {{#each ../columns}}
-            <td class="{{tdClass}}">
-              <span class="{{tdWrapperSpanClass}}">
+            <td class="{{callIfFunction tdClass ..}}">
+              <span class="{{callIfFunction tdWrapperSpanClass ..}}">
                 {{#each children}}
-                  <span class="{{tdSpanClass}}">
+                  <span class="{{callIfFunction tdSpanClass ../..}}">
                     {{#if template}}
                       {{#with value ../..}}
                         {{> Template.dynamic template=../template}}
@@ -39,8 +39,8 @@
                     {{/if}}
                   </span>
                   {{#unless isLast ../children this}}
-                    <span class="{{../../../tdSpanSeparatorClass}}">
-                      {{../../../tdSpanSeparatorContent}}
+                    <span class="{{callIfFunction ../../../tdSpanSeparatorClass ../..}}">
+                      {{callIfFunction ../../../tdSpanSeparatorContent ../..}}
                     </span>
                   {{/unless}}
                 {{else}}
