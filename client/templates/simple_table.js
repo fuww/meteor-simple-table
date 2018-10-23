@@ -11,15 +11,15 @@ Template.simpleTable.onCreated(function() {
   this.page = new ReactiveVar(1);
   this.pageSize = new ReactiveVar(DEFAULT_PAGE_SIZE);
   this.pagesCount = new ReactiveVar(0);
-  this.sort = new ReactiveVar({});
+  const defaultSortVariable = new ReactiveVar({});
 
   this.autorun(() => {
-    const data = Template.currentData();
-
-    const pageSize = data.pageSize;
+    const {pageSize, sort} = Template.currentData();
     if (pageSize) {
       this.pageSize.set(pageSize);
     }
+
+    this.sort = sort || defaultSortVariable;
   });
 
   this.autorun(() => {
@@ -48,6 +48,10 @@ Template.simpleTable.onCreated(function() {
 
   this.autorun(() => {
     const data = Template.currentData();
+
+    if (this.sort.get()) {
+      return;
+    }
 
     this.sort.set(data.defaultSort || {});
   });
