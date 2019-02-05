@@ -164,6 +164,9 @@ Template.simpleTable.helpers({
     }
 
     return functionOrString;
+  },
+  isLoaded(loaded) {
+    return loaded !== false;
   }
 });
 

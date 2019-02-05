@@ -23,6 +23,7 @@
       </tr>
     </thead>
     <tbody class="{{tbodyClass}}">
+    {{#if isLoaded loaded}}
       {{#each documents}}
         <tr class="{{callIfFunction ../trClass this}}">
           {{#each ../columns}}
@@ -57,9 +58,13 @@
           {{/each}}
         </tr>
       {{/each}}
+    {{else}}
+      {{> Template.dynamic template=loader}}
+    {{/if}}
     </tbody>
   </table>
   <ul class="{{paginationUlClass}}">
+  {{#if isLoaded loaded}}
     <li
       class="{{paginationLiClass}} {{paginationLiFirstClass}} {{#if isPageActive firstPage}}{{paginationLiActiveClass}}{{/if}}"
       data-page="{{firstPage}}"
@@ -92,5 +97,8 @@
     >
       &gt;&gt;
     </li>
+  {{else}}
+    {{> Template.dynamic template=paginationLoader}}
+  {{/if}}
   </ul>
 </template>
